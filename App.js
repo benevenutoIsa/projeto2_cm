@@ -270,3 +270,36 @@ function TelaControleFinanceiro() {
     </SafeAreaView>
   );
 }
+
+//função responsavel pela navegação entre as paginas
+function TabAutenticacao() {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen
+        name="Login"
+        component={PaginaLogin}
+        options={{ headerShown: false, tabBarLabel: 'Login' }}
+      />
+      <Tab.Screen
+        name="Cadastro"
+        component={PaginaCadastro}
+        options={{ headerShown: false, tabBarLabel: 'Cadastro' }}
+      />
+    </Tab.Navigator>
+  );
+}
+
+//define as estrutura principal do aplicativo com todas as paginas e se vai ter um fluxo para voltar ou entrar em outra (headerShown)
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Autenticacao" component={TabAutenticacao} />
+        <Stack.Screen name="Opcoes" component={Menu} />
+        <Stack.Screen name="CheckDiario" component={TelaToDO} options={{ headerShown: true }} />
+        <Stack.Screen name="ControleFinanceiro" component={TelaControleFinanceiro} options={{ headerShown: true }} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+

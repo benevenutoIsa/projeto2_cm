@@ -64,7 +64,7 @@ function PaginaLogin({ navigation }) {
   // carregar o som para quando o login for efetuado com sucesso
   const loadSound = async () => {
     const { sound } = await Audio.Sound.createAsync(
-      require('./assets/login-success.mp3') 
+      require('./login-success.mp3') 
     );
     setSound(sound);
   };
@@ -142,7 +142,7 @@ function Menu({ navigation }) {
       ))}
 
       <Image
-        source={require('./assets/bobB.png')} 
+        source={require('./bobB.png')} 
         style={styles.image}
       />
     </SafeAreaView>

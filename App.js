@@ -76,7 +76,7 @@ function PaginaLogin({ navigation }) {
       if (sound) {
         await sound.replayAsync(); 
       }
-      navigation.navigate('Filmes');
+      navigation.navigate('Opcoes');
     } else {
       Alert.alert('Erro', 'Usuário ou senha incorretos.');
     }
@@ -113,4 +113,40 @@ function PaginaLogin({ navigation }) {
     </SafeAreaView>
   );
 }
+
+//função do menu principal do app
+function Menu({ navigation }) {
+  const opcoes = [
+      //lista de objetos presentes dentro do menu
+    { id: '1', titulo: 'Check Diário' },
+    { id: '2', titulo: 'Controle de Finanças' },
+  ];
+  //monta a tela de menu com conexão ao arquivo de style css
+  return (
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.header}>Navegue Pelo Nosso App</Text>
+      {opcoes.map((opcao) => (
+        <TouchableOpacity
+          key={opcao.id}
+          style={styles.movieButton}
+          onPress={() => {
+            if (opcao.titulo === 'Check Diário') {
+              navigation.navigate('CheckDiario');
+            } else if (opcao.titulo === 'Controle de Finanças') {
+              navigation.navigate('ControleFinanceiro');
+            }
+          }}
+        >
+          <Text style={styles.movieTitle}>{opcao.titulo}</Text>
+        </TouchableOpacity>
+      ))}
+
+      <Image
+        source={require('./assets/bobB.png')} 
+        style={styles.image}
+      />
+    </SafeAreaView>
+  );
+}
+
 

@@ -149,4 +149,124 @@ function Menu({ navigation }) {
   );
 }
 
+//função da tela que contem um To Do List com a opção de check 
+function TelaToDO() {
+  //define os estado do compo da tarefa e guarda na lista
+  const [tarefa, setTarefa] = useState('');
+  const [tarefas, setTarefas] = useState([]);
 
+  //parte que vai fazer essa adição das tarefas na lista
+  const adicionarTarefa = () => {
+    if (tarefa) {
+      setTarefas([...tarefas, { id: Date.now().toString(), texto: tarefa, completa: false }]);
+      //çimpa o campo de entrada apos adicionar a nova tarefa 
+      setTarefa('');
+    } else {
+      Alert.alert('Erro', 'Digite uma tarefa para adicionar.');
+    }
+  };
+    //monta a tela de To Do com conexão ao arquivo de style css
+  //mostra o espaço para inserir, o botão e exibe em forma de lista 
+  return (
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.header}>To Do List</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Digite uma nova tarefa"
+        value={tarefa}
+        onChangeText={setTarefa}
+      />
+      <Button title="Adicionar Tarefa" onPress={adicionarTarefa} />
+      <FlatList
+        data={tarefas}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.taskContainer}>
+            <Text style={styles.taskText}>{item.texto}</Text>
+          </View>
+        )}
+      />
+    </SafeAreaView>
+  );
+}
+
+//função da tela de controle financeiro
+function TelaControleFinanceiro() {
+  //define os estados das entradas e serão armazenadas
+  const [salario, setSalario] = useState('');
+  const [despesa, setDespesa] = useState('');
+  const [descricaoDespesa, setDescricaoDespesa] = useState('');
+  const [despesas, setDespesas] = useState([]);
+  const [saldo, setSaldo] = useState(0);
+
+  //registra o valor inical inserido que é o salario
+  const handleRegistrarSalario = () => {
+    const salarioConvertido = parseFloat(salario); //converte para float, decimal no caso e faz uma verifição para ver se o valor inserido é valido
+    if (!isNaN(salarioConvertido)) {
+      setSaldo(salarioConvertido);
+      Alert.alert('Sucesso', 'Salário registrado com sucesso!');
+      setSalario('');
+    } else {
+      Alert.alert('Erro', 'Digite um valor de salário válido.');
+    }
+  };
+
+  //adciona uma despesa
+  const handleAdicionarDespesa = () => {
+    const despesaConvertida = parseFloat(despesa); //faz a conversão e a mesma verificação do salario
+    if (!descricaoDespesa || isNaN(despesaConvertida)) {
+      Alert.alert('Erro', 'Digite uma descrição e valor válidos para a despesa.');
+      return;
+    }
+    //adiciona a despesa a lista no formato estabeçecido
+    setDespesas([
+      ...despesas,
+      { id: Date.now().toString(), descricao: descricaoDespesa, valor: despesaConvertida },
+    ]);
+    //diminui do salario o valor da despesa
+    setSaldo((saldoAnterior) => saldoAnterior - despesaConvertida);
+    //limpa os campos para a proxima despesa
+    setDespesa('');
+    setDescricaoDespesa('');
+  };
+      //monta a tela de controle financeira com conexão ao arquivo de style css
+  return (
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.header}>Controle Financeiro</Text>
+      
+      <TextInput
+        style={styles.input}
+        placeholder="Digite seu salário"
+        value={salario}
+        onChangeText={setSalario}
+        keyboardType="numeric"
+      />
+      <Button title="Registrar Salário" onPress={handleRegistrarSalario} />
+      <Text style={styles.balance}>Saldo Restante: R$ {saldo.toFixed(2)}</Text>
+
+      <TextInput
+        style={styles.input}
+        placeholder="Descrição da despesa"
+        value={descricaoDespesa}
+        onChangeText={setDescricaoDespesa}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Valor da despesa"
+        value={despesa}
+        onChangeText={setDespesa}
+        keyboardType="numeric"
+      />
+      <Button title="Adicionar Despesa" onPress={handleAdicionarDespesa} />
+      <FlatList
+        data={despesas}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.expenseItem}>
+            <Text style={styles.expenseText}>{item.descricao}: R$ {item.valor.toFixed(2)}</Text>
+          </View>
+        )}
+      />
+    </SafeAreaView>
+  );
+}

@@ -165,6 +165,12 @@ function TelaToDO() {
       Alert.alert('Erro', 'Digite uma tarefa para adicionar.');
     }
   };
+  //encontra a tarefa que for selecionada para ser marcada como completa
+  const alternarCompleta = (id) => {
+    setTarefas(tarefas.map(tarefa => 
+      tarefa.id === id ? { ...tarefa, completa: !tarefa.completa } : tarefa
+    ));
+  };
     //monta a tela de To Do com conexão ao arquivo de style css
   //mostra o espaço para inserir, o botão e exibe em forma de lista 
   return (
@@ -181,9 +187,16 @@ function TelaToDO() {
         data={tarefas}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <View style={styles.taskContainer}>
-            <Text style={styles.taskText}>{item.texto}</Text>
-          </View>
+          <TouchableOpacity onPress={() => alternarCompleta(item.id)}>
+            <View style={styles.taskContainer}>
+              <Text style={[
+                styles.taskText,
+                item.completa && { textDecorationLine: 'line-through', color: 'green' }
+              ]}>
+                {item.texto}
+              </Text>
+            </View>
+          </TouchableOpacity>
         )}
       />
     </SafeAreaView>

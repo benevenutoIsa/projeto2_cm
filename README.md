@@ -23,33 +23,18 @@
   Permite que o usuário registre seu salário e adicione despesas com descrição e valor.
   Exibe o saldo restante após cada nova despesa registrada.
   Possibilita uma visão clara dos gastos diários.
-  
-#### Navegação Intuitiva
-  Navegação entre as principais telas (Check Diário e Controle de Finanças) e autenticação via tab bar e stack navigation.
-
-
-### Telas
-#### Tela de Login e Cadastro
-A tela de autenticação possui uma navegação por abas, permitindo que o usuário escolha entre fazer login ou cadastrar uma nova conta.
-
-#### Tela de Check Diário
-Tela onde o usuário pode adicionar tarefas diárias. Cada tarefa pode ser visualizada em uma lista para facilitar o acompanhamento das atividades.
-
-#### Tela de Controle Financeiro
-O usuário pode inserir o valor do salário e registrar despesas com descrição e valor. A tela exibe o saldo restante, considerando o valor total de despesas registradas, ajudando o usuário a controlar seus gastos.
-
-### Tecnologias Utilizadas
-React Native com Expo: framework principal para o desenvolvimento mobile.
-AsyncStorage: utilizado para armazenamento local de dados, como as credenciais e despesas.
-React Navigation: biblioteca para gerenciamento de navegação entre as telas do app.
-
-  ### Segue abaixo o codigo completo do projeto:
-
-  --
 
   ### Segue abaixo o video do projeto funcionando:
+  ![Tela de cadastro](app/cadastro].png)
+  ![Tela de login](app/login.png)
+  ![Tela de menu](app/inicial.png)
+  ![Tela da ToDoList](app/toDo.png)
+  ![Tela de ToDoList com Check](app/check.png)
+  ![Tela de Controle Financeiro](app/financ.png)
+  ![Tela do Controle Financeiro Funcionando](app/financ_2.png)
+
+
   
-  --
   
   
 

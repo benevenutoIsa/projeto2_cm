@@ -59,38 +59,19 @@ function PaginaLogin({ navigation }) {
   //onde vão ser armazenados os valores de usuario e senha
   const [usuario, setUsuario] = useState('');
   const [senha, setSenha] = useState('');
-  const [sound, setSound] = useState();
 
-  // carregar o som para quando o login for efetuado com sucesso
-  const loadSound = async () => {
-    const { sound } = await Audio.Sound.createAsync(
-      require('./login-success.mp3') 
-    );
-    setSound(sound);
-  };
-  //faz a confirmação se o login foi realizado corretamente e solta o som escolhido 
+  //faz a confirmação se o login foi realizado corretamente
   const handleLogin = async () => {
     const senhaArmazenada = await AsyncStorage.getItem(usuario);
     if (senhaArmazenada === senha) {
       Alert.alert('Sucesso', 'Login realizado com sucesso!');
-      if (sound) {
-        await sound.replayAsync(); 
-      }
       navigation.navigate('Opcoes');
     } else {
       Alert.alert('Erro', 'Usuário ou senha incorretos.');
     }
   };
-  
-  useEffect(() => {
-    loadSound(); //solta o som ao entrar na pagina depois de confirma
-    return sound
-      ? () => {
-          sound.unloadAsync(); //para ele
-        }
-      : undefined;
-  }, []);
-//monta a tela de cadastro com conexão ao arquivo de style css
+
+  //monta a tela de cadastro com conexão ao arquivo de style css
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.appTitle}>organiZer</Text>
@@ -114,13 +95,15 @@ function PaginaLogin({ navigation }) {
   );
 }
 
+
 //função do menu principal do app
 function Menu({ navigation }) {
   const opcoes = [
       //lista de objetos presentes dentro do menu
     { id: '1', titulo: 'Check Diário' },
     { id: '2', titulo: 'Controle de Finanças' },
-  ];
+    {id: '3', titulo: 'Mood do Dia' },
+     ];
   //monta a tela de menu com conexão ao arquivo de style css
   return (
     <SafeAreaView style={styles.container}>
@@ -131,9 +114,11 @@ function Menu({ navigation }) {
           style={styles.movieButton}
           onPress={() => {
             if (opcao.titulo === 'Check Diário') {
-              navigation.navigate('CheckDiario');
+              navigation.navigate('Check Diario');
             } else if (opcao.titulo === 'Controle de Finanças') {
-              navigation.navigate('ControleFinanceiro');
+              navigation.navigate('Controle Financeiro');
+            } else if (opcao.titulo == 'Mood do Dia'){
+              navigation.navigate('Mood do Dia');
             }
           }}
         >
@@ -142,12 +127,13 @@ function Menu({ navigation }) {
       ))}
 
       <Image
-        source={require('./bobB.png')} 
+        source={require('./assets/bobB.png')} 
         style={styles.image}
       />
     </SafeAreaView>
   );
 }
+
 
 //função da tela que contem um To Do List com a opção de check 
 function TelaToDO() {
@@ -165,7 +151,7 @@ function TelaToDO() {
       Alert.alert('Erro', 'Digite uma tarefa para adicionar.');
     }
   };
-  //encontra a tarefa que for selecionada para ser marcada como completa
+
   const alternarCompleta = (id) => {
     setTarefas(tarefas.map(tarefa => 
       tarefa.id === id ? { ...tarefa, completa: !tarefa.completa } : tarefa
@@ -284,6 +270,70 @@ function TelaControleFinanceiro() {
   );
 }
 
+function TelaMooddoDia() {
+  const [sound, setSound] = useState(null); //seta o som nulo primeiro ja que exige que o suuario clique para tocar
+
+  //todos os moods disponiveis alinhados por id, imagem referente, descrição e o audio 
+  //a ideia era ter uma musica para cada mood mas não deu tempo :)
+  const moods = [
+    {id: '1',
+      image: require('./assets/happy.png'),
+      description: 'Ingorando o resto do mundo',
+      audio: require('./assets/login-success.mp3'),},
+    { id: '2',
+      image: require('./assets/desespero.png'),
+      description: 'Surtando',
+      audio: require('./assets/login-success.mp3'),},
+    { id: '3',
+      image: require('./assets/exausta.png'),
+      description: 'Exausta',
+      audio: require('./assets/login-success.mp3'), },
+  ];
+
+//parte que identifica se a foto foi sinalizada e toca o som pré definido
+  const playSound = async (audio) => {
+    try {
+      if (sound) {
+        await sound.unloadAsync(); // Para o som anterior, se necessário
+      }
+      const { sound: newSound } = await Audio.Sound.createAsync(audio);
+      setSound(newSound);
+      await newSound.playAsync();
+    } catch (error) {
+      Alert.alert('não foi possível reproduzir o som.');
+    }
+  };
+
+
+  useEffect(() => {
+    return sound
+      ? () => {
+          sound.unloadAsync(); //limpa depois que a musica ja foi tocada
+        }
+      : undefined;
+  }, [sound]);
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.header}>Escolha seu Mood do Dia</Text>
+      <FlatList
+        data={moods}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={styles.moodContainer}
+            onPress={() => playSound(item.audio)}
+          >
+            <Image source={item.image} style={styles.moodImage} />
+            <Text style={styles.moodDescription}>{item.description}</Text>
+          </TouchableOpacity>
+        )}
+      />
+    </SafeAreaView>
+  );
+}
+
+
 //função responsavel pela navegação entre as paginas
 function TabAutenticacao() {
   return (
@@ -309,10 +359,10 @@ export default function App() {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Autenticacao" component={TabAutenticacao} />
         <Stack.Screen name="Opcoes" component={Menu} />
-        <Stack.Screen name="CheckDiario" component={TelaToDO} options={{ headerShown: true }} />
-        <Stack.Screen name="ControleFinanceiro" component={TelaControleFinanceiro} options={{ headerShown: true }} />
+        <Stack.Screen name="Check Diario" component={TelaToDO} options={{ headerShown: true }} />
+        <Stack.Screen name="Controle Financeiro" component={TelaControleFinanceiro} options={{ headerShown: true }} />
+        <Stack.Screen name="Mood do Dia" component={TelaMooddoDia} options={{ headerShown: true }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-

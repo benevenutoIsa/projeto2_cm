@@ -25,13 +25,14 @@
   Possibilita uma visão clara dos gastos diários.
 
   ### Segue abaixo o video do projeto funcionando:
-  ![Tela de cadastro](app/cadastro].png)
+  ![Tela de cadastro](app/cadastro.png)
   ![Tela de login](app/login.png)
-  ![Tela de menu](app/inicial.png)
+  ![Tela de menu](app/principal.png)
   ![Tela da ToDoList](app/toDo.png)
   ![Tela de ToDoList com Check](app/check.png)
   ![Tela de Controle Financeiro](app/financ.png)
   ![Tela do Controle Financeiro Funcionando](app/financ_2.png)
+  ![Tela dos Moods](app/mood.png)
 
 
   

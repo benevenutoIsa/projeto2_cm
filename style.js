@@ -6,17 +6,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 16,
-    backgroundColor: 'rgb(230, 230, 250)', 
+    backgroundColor: 'rgb(230, 230, 250)', // Cor de fundo clara e suave
   },
   appTitle: {
     fontSize: 38,
     fontWeight: 'bold',
-    color: '#4a90e2', 
+    color: '#4a90e2', // Cor de destaque para o nome do app
     marginBottom: 8,
   },
   subText: {
     fontSize: 16,
-    color: '#6c757d', 
+    color: '#6c757d', // Cor mais suave para o texto explicativo
     marginBottom: 24,
     textAlign: 'center',
   },
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   balance: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#2e8b57', 
+    color: '#2e8b57', // Verde para destacar o saldo restante
     marginVertical: 16,
   },
   expenseItem: {
@@ -86,10 +86,24 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   image: {
-    width: 200, 
-    height: 200, 
-    marginTop: 20,
-    resizeMode: 'contain', 
+  width: 180, 
+  height: 180, 
+  resizeMode: 'contain', 
+  marginBottom: 16, 
+},
+  moodContainer: {
+    alignItems: 'center',
+    marginVertical: 15,
+  },
+  moodImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+  },
+  moodDescription: {
+    fontSize: 16,
+    color: '#333',
+    marginTop: 10,
   },
 });
 

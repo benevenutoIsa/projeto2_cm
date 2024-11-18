@@ -53,7 +53,7 @@ O objetivo do **Organize** é fornecer uma ferramenta simples e completa para a 
 
 Aqui estão algumas imagens que ilustram o funcionamento do aplicativo:
 
-![Tela de cadastro](app/cadastro.png)  
+![Tela de cadastro](app/cadastro].png)  
 ![Tela de login](app/login.png)  
 ![Tela de menu](app/principal.png)  
 ![Tela de ToDoList](app/toDo.png)  

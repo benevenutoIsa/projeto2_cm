@@ -24,8 +24,12 @@
   Exibe o saldo restante após cada nova despesa registrada.
   Possibilita uma visão clara dos gastos diários.
 
+#### Tela "Mood do Dia"
+  O aplicativo permite que o usuário escolha seu "mood" do dia, com diferentes imagens e sons para representar o humor do dia.
+  Ao selecionar um "mood", o som relacionado é tocado, ajudando a definir o clima para o restante do dia.
+
   ### Segue abaixo o video do projeto funcionando:
-  ![Tela de cadastro](app/cadastro.png)
+  ![Tela de cadastro](app/cadastro].png)
   ![Tela de login](app/login.png)
   ![Tela de menu](app/principal.png)
   ![Tela da ToDoList](app/toDo.png)
